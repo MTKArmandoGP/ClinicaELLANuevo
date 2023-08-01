@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Temperatura_Fragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="23dp" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="257dp"
+                android:layout_height="257dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="64dp"
+                android:layout_marginEnd="90dp"
+                android:src="@drawable/temp"
+                android:foregroundGravity="center"/>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="60dp"
+                android:text="Selecciona la primera unidad:" />
+
+            <Spinner
+                android:id="@+id/sp_unidadTemp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginTop="16dp"
+                android:entries="@array/spinnerTemperatura" />
+
+            <EditText
+                android:id="@+id/txt_valorTemp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="68dp"
+                android:text="Selecciona la segunda unidad:" />
+
+            <Spinner
+                android:id="@+id/sp_unidadTemp2"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginTop="16dp"
+                android:entries ="@array/spinnerTemperatura"/>
+
+            <TextView
+                android:id="@+id/tv_resultadoTemp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:text="Resultado"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_RegresarConversor"
+                    android:layout_width="156dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Regresar"
+                    android:textSize="20dp"
+                    android:backgroundTint="#E66363"/>
+
+                <Button
+                    android:id="@+id/btn_calcular"
+                    android:layout_width="156dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="52dp"
+                    android:layout_marginTop="20dp"
+                    android:onClick="Conversion"
+                    android:text="Calcular"
+                    android:textSize="20dp"/>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

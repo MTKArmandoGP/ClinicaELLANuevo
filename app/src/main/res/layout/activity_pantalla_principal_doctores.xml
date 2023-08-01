@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pantalla_principal_Doctores_activity"
+    android:background="@color/white">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        tools:context=".pantalla_principal_usuarios_activity"
+        android:background="@color/seed"
+        android:layout_above="@id/bottom"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/toolbar"
+                android:elevation="4dp"
+                android:background="@color/md_theme_dark_primary"
+                android:tint="@color/AzulFinal"
+                app:titleTextColor="@color/AzulFinal"
+                android:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+            <FrameLayout
+                android:id="@+id/frameLayoutDoctores"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start" />
+
+        </LinearLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/nav_view"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/nav_header"
+            app:menu="@menu/menu_doctores"
+            app:itemTextColor="@color/black"
+            android:background="@color/white"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="5dp"
+        android:weightSum="4"
+        android:background="@color/white">
+
+
+
+        <LinearLayout
+            android:id="@+id/medicineLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:background="@android:color/transparent">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/medicineView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:lottie_rawRes="@raw/farmacia"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="true"/>
+
+            <TextView
+                android:id="@+id/medicineTxt"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Farmacia"
+                android:textStyle="bold"
+                android:textColor="#170343"
+                android:layout_marginStart="10dp"
+                android:textSize="16sp"/>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/datesLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:background="@android:color/transparent">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/datesView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:lottie_rawRes="@raw/date2"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="true"/>
+
+            <TextView
+                android:id="@+id/datesTxt"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Citas"
+                android:textStyle="bold"
+                android:textColor="#170343"
+                android:layout_marginStart="10dp"
+                android:textSize="16sp"/>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/homeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_item_menu"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/homeanimationView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/home3"
+                app:lottie_loop="true"/>
+
+            <TextView
+                android:id="@+id/homeTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="HOME"
+                android:textColor="#110115"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/recipesLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:background="@android:color/transparent">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/recipesView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:lottie_rawRes="@raw/recetass"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="true"/>
+
+            <TextView
+                android:id="@+id/recipesTxt"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recetas"
+                android:textStyle="bold"
+                android:textColor="#170343"
+                android:layout_marginStart="10dp"
+                android:textSize="16sp"/>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/settingsLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:background="@android:color/transparent">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/settingsView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:lottie_rawRes="@raw/settings2"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="true"/>
+
+            <TextView
+                android:id="@+id/settingsTxt"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ajustes"
+                android:textStyle="bold"
+                android:textColor="#170343"
+                android:layout_marginStart="10dp"
+                android:textSize="16sp"/>
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

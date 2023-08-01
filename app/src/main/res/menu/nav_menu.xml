@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            app:actionLayout="@layout/menu_item_home"
+            app:showAsAction="always" />
+
+        <item
+            android:id="@+id/nav_medicine"
+            android:icon="@drawable/frascomedicina"
+            android:title="Farmacia"/>
+
+        <item
+            android:id="@+id/nav_dates"
+            android:icon="@drawable/cuaderno"
+            android:title="Pantalla Citas"/>
+
+        <item
+            android:id="@+id/nav_recipes"
+            android:icon="@drawable/receta"
+            android:title="Recetas Medicas"/>
+
+        <item
+            android:id="@+id/nav_settings"
+            app:actionLayout="@layout/menu_item_configuraciones"
+            app:showAsAction="always" />
+
+        <item
+            android:id="@+id/nav_herramientas"
+            android:icon="@drawable/herramientas"
+            android:title="Herramientas"/>
+
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/baseline_person_24"
+            android:title="Mi perfil"/>
+
+        <item
+            android:id="@+id/nav_cambiar_contrasena"
+            android:icon="@drawable/recargar"
+            android:title="Cambiar Contraseña"/>
+
+
+    </group>
+
+    <item
+        android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/baseline_logout_24"
+                android:title="Cerrar Sesión"/>
+
+        </menu>
+    </item>
+
+</menu>
