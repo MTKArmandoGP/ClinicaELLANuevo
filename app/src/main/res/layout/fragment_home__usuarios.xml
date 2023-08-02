@@ -3,25 +3,120 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment_Usuarios">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomeFragment_Usuarios"
+    android:background="@drawable/fondo2">
 
-
-    <Button
-        android:id="@+id/CerrarSesion"
+    <RelativeLayout
+        android:id="@+id/homeUsuarios"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="558dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="18dp"
-        android:backgroundTint="@color/botonlogin2"
-        android:fontFamily="@font/ketikan_demo"
-        android:text="Salir de Usuarios"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="61dp"
+        android:background="@drawable/bg_container_login"
+        android:elevation="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="286dp"
+            android:gravity="center"
+            android:text="BIENVENIDO"
+            android:textColor="@color/AzulFinal"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="110dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="286dp"
+            android:gravity="center"
+            android:text="Clinica familiar E-LAA"
+            android:textColor="@color/AzulFinal"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="160dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="286dp"
+            android:gravity="center"
+            android:text="¿Como podemos ayudarte?"
+            android:textColor="@color/AzulFinal"
+            android:textSize="16dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="450dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="286dp"
+            android:gravity="center"
+            android:text="Cuando se trata de tu salud, no hay límites"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="italic" />
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="247dp"
+            android:layout_height="206dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="226dp"
+            android:layout_marginEnd="52dp"
+            android:layout_marginBottom="512dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/estecoscopio1final" />
+
+        <Button
+            android:id="@+id/CerrarSesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="520dp"
+            android:layout_marginEnd="18dp"
+            android:backgroundTint="@color/botonlogin2"
+            android:fontFamily="@font/ketikan_demo"
+            android:text="Salir de Usuarios"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
 </RelativeLayout>
