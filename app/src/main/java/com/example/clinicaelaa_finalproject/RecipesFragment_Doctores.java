@@ -3,10 +3,14 @@ package com.example.clinicaelaa_finalproject;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +63,19 @@ public class RecipesFragment_Doctores extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipes__doctores, container, false);
+        View view = inflater.inflate(R.layout.fragment_recipes__doctores, container, false);
+        FloatingActionButton btnAddReceta = view.findViewById(R.id.add_receta);
+        btnAddReceta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setReorderingAllowed(true);
+                fragmentTransaction.replace(R.id.frameLayoutDoctores, FragmentMakeReceta.class, null);
+                fragmentTransaction.commit();
+            }
+        });
+        return view;
     }
+
 }
