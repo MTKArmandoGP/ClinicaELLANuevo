@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -24,6 +25,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import androidx.biometric.BiometricManager;
+import androidx.biometric.BiometricPrompt;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,19 +43,11 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentMakeReceta#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FragmentMakeReceta extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -60,15 +55,6 @@ public class FragmentMakeReceta extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentMakeReceta.
-     */
-    // TODO: Rename and change types and number of parameters
     public static FragmentMakeReceta newInstance(String param1, String param2) {
         FragmentMakeReceta fragment = new FragmentMakeReceta();
         Bundle args = new Bundle();
@@ -80,20 +66,6 @@ public class FragmentMakeReceta extends Fragment {
 
     private Context context;
     private String usuario, password;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
-
     private EditText editTextFecha;
     private EditText editTextNombre;
     private EditText editTextPeso;
@@ -105,6 +77,22 @@ public class FragmentMakeReceta extends Fragment {
     private RadioGroup radioGroupSexo;
     private Button buttonGenerarReceta;
     private int id_Doctor;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -138,11 +126,54 @@ public class FragmentMakeReceta extends Fragment {
         buttonGenerarReceta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                generarReceta();
+                // Antes de generar la receta, solicitamos confirmación con huella dactilar.
+                if (isBiometricAvailable()) {
+                    showBiometricPrompt();
+                } else {
+                    // Si el dispositivo no es compatible con la autenticación biométrica, muestra un mensaje de error.
+                    Toast.makeText(getActivity(), "Tu dispositivo no admite la autenticación biométrica.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         return view;
+    }
+
+    private boolean isBiometricAvailable() {
+        BiometricManager biometricManager = BiometricManager.from(requireContext());
+        return biometricManager.canAuthenticate() == BiometricManager.BIOMETRIC_SUCCESS;
+    }
+
+    private void showBiometricPrompt() {
+        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Confirmar con huella dactilar")
+                .setNegativeButtonText("Cancelar")
+                .build();
+
+        BiometricPrompt biometricPrompt = new BiometricPrompt(this, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                // La autenticación fue exitosa, procede a generar la receta.
+                generarReceta();
+            }
+
+            @Override
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+                // Error en la autenticación, muestra un mensaje de error.
+                Toast.makeText(getActivity(), "Error en la autenticación: " + errString, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                // La autenticación falló, muestra un mensaje de error.
+                Toast.makeText(getActivity(), "Autenticación fallida. Inténtalo nuevamente.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Muestra el diálogo de autenticación biométrica
+        biometricPrompt.authenticate(promptInfo);
     }
 
     private void showDatePickerDialog(EditText editText) {
@@ -163,8 +194,7 @@ public class FragmentMakeReceta extends Fragment {
     }
 
     private void generarReceta() {
-        String URL = "http://192.168.3.10/proyecto_clinicaELAA/addReceta.php"; // Update with your PHP API URL
-
+        // Obtener los valores de los campos de entrada
         String fecha = editTextFecha.getText().toString().trim();
         String nombre = editTextNombre.getText().toString().trim();
         String peso = editTextPeso.getText().toString().trim();
@@ -182,12 +212,15 @@ public class FragmentMakeReceta extends Fragment {
             sexo[0] = "F";
         }
 
+        // Validar los campos antes de continuar
         if (fecha.isEmpty() || nombre.isEmpty() || peso.isEmpty() || estatura.isEmpty()
                 || imc.isEmpty() || temperatura.isEmpty() || presion.isEmpty() || descripcion.isEmpty()) {
             // Si algún campo está vacío, mostramos un mensaje de error
             Toast.makeText(getActivity(), "Por favor, complete todos los campos.", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        String URL = "http://192.168.3.10/proyecto_clinicaELAA/addReceta.php"; // Update with your PHP API URL
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
