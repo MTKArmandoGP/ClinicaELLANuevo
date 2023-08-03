@@ -17,6 +17,16 @@ public class ListAdapter_Recetas extends RecyclerView.Adapter<ListAdapter_Receta
     private LayoutInflater mInflater;
     private Context context;
 
+    public interface OnItemClickListener {
+        void onItemClick(int idReceta);
+    }
+
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     public ListAdapter_Recetas(List<ListElement_Recetas> itemList, Context context) {
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
@@ -33,6 +43,20 @@ public class ListAdapter_Recetas extends RecyclerView.Adapter<ListAdapter_Receta
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bindData(mData.get(position));
+
+        // Set click listener for the item view
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition(); // Obtain the updated position
+                if (listener != null && position != RecyclerView.NO_POSITION) {
+                    // Get the selected item's idReceta
+                    int idReceta = mData.get(position).getIdReceta();
+                    // Call the onItemClick method of the listener
+                    listener.onItemClick(idReceta);
+                }
+            }
+        });
     }
 
     @Override
@@ -59,4 +83,6 @@ public class ListAdapter_Recetas extends RecyclerView.Adapter<ListAdapter_Receta
         }
     }
 }
+
+
 

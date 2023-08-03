@@ -104,7 +104,6 @@ public class RecipesFragment_Doctores extends Fragment {
             }
         });
 
-
         return view;
     }
 
@@ -204,19 +203,24 @@ public class RecipesFragment_Doctores extends Fragment {
                                 elements.add(new ListElement_Recetas(idReceta, nombrePaciente, fecha));
                             }
 
-                            // Update the RecyclerView on the main thread
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    // Initialize the RecyclerView and set the adapter
                                     listAdapter = new ListAdapter_Recetas(elements, getContext());
                                     recyclerView.setHasFixedSize(true);
                                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                                     recyclerView.setAdapter(listAdapter);
+
+                                    // Set item click listener here after initializing the adapter
+                                    listAdapter.setOnItemClickListener(new ListAdapter_Recetas.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(int idReceta) {
+                                            openFragmentMakeReceta(idReceta);
+                                        }
+                                    });
                                 }
                             });
                         } else {
-                            // Handle the case when there are no recipes for the given doctor ID
                             String message = jsonResponse.getString("message");
                             Log.e("FetchData", "API response error: " + message);
                         }
@@ -229,6 +233,16 @@ public class RecipesFragment_Doctores extends Fragment {
                 }
             }
         });
+    }
+
+    private void openFragmentMakeReceta(int idReceta) {
+        FragmentMakeReceta fragment = FragmentMakeReceta.newInstance(idReceta);
+
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setReorderingAllowed(true);
+        fragmentTransaction.replace(R.id.frameLayoutDoctores, fragment);
+        fragmentTransaction.commit();
     }
 
 }

@@ -49,19 +49,22 @@ public class FragmentMakeReceta extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_ID_RECETA = "idReceta";
 
     private String mParam1;
     private String mParam2;
+    private int idReceta;
+
+    private boolean hasIdReceta = false;
 
     public FragmentMakeReceta() {
         // Required empty public constructor
     }
 
-    public static FragmentMakeReceta newInstance(String param1, String param2) {
+    public static FragmentMakeReceta newInstance(int idReceta) {
         FragmentMakeReceta fragment = new FragmentMakeReceta();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_ID_RECETA, idReceta);
         fragment.setArguments(args);
         return fragment;
     }
@@ -84,8 +87,7 @@ public class FragmentMakeReceta extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            idReceta = getArguments().getInt(ARG_ID_RECETA);
         }
     }
 
@@ -106,6 +108,7 @@ public class FragmentMakeReceta extends Fragment {
         password = preferences.getString("password", "");
 
         fetchData();
+        fetchDataForReceta();
 
         editTextFecha = view.findViewById(R.id.fecha_receta);
         editTextNombre = view.findViewById(R.id.Recetas_Nombre);
@@ -138,8 +141,78 @@ public class FragmentMakeReceta extends Fragment {
             }
         });
 
+        if (idReceta != 0) {
+            buttonGenerarReceta.setText("Modificar Receta");
+        } else {
+            buttonGenerarReceta.setText("Agendar Receta");
+        }
+
         return view;
     }
+
+    private void fetchDataForReceta() {
+        if (idReceta > 0) {
+            // Si hay un idReceta válido, hacemos la solicitud a la API para obtener los datos de la receta
+            String URL = "http://192.168.3.10/proyecto_clinicaELAA/consultarDatosRecetas.php"; // Reemplaza esta URL con la URL de tu API
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                boolean success = jsonObject.getBoolean("success");
+                                if (success) {
+                                    JSONArray recetasArray = jsonObject.getJSONArray("recetas");
+                                    if (recetasArray.length() > 0) {
+                                        JSONObject recetaObject = recetasArray.getJSONObject(0);
+                                        // Llenar los campos con los datos de la receta obtenidos
+                                        editTextFecha.setText(recetaObject.getString("fecha"));
+                                        editTextNombre.setText(recetaObject.getString("nombrePaciente"));
+                                        editTextPeso.setText(recetaObject.getString("peso"));
+                                        editTextEstatura.setText(recetaObject.getString("estatura"));
+                                        editTextIMC.setText(recetaObject.getString("imc"));
+                                        editTextTemperatura.setText(recetaObject.getString("temperatura"));
+                                        editTextPresion.setText(recetaObject.getString("presion"));
+                                        editTextDescripcion.setText(recetaObject.getString("descripcion_tratamiento"));
+
+                                        // Si el sexo está almacenado como "M" o "F", seleccionar el radio button correspondiente
+                                        String sexo = recetaObject.getString("sexo");
+                                        if (sexo.equals("M")) {
+                                            radioGroupSexo.check(R.id.radio_masculino);
+                                        } else if (sexo.equals("F")) {
+                                            radioGroupSexo.check(R.id.radio_femenino);
+                                        }
+                                    }
+                                } else {
+                                    Toast.makeText(getActivity(), "No se encontraron datos para la receta.", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(getActivity(), "Error al procesar la respuesta", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.printStackTrace();
+                            Toast.makeText(getActivity(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("idReceta", String.valueOf(idReceta));
+                    return params;
+                }
+            };
+
+            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+            requestQueue.add(stringRequest);
+        }
+    }
+
 
     private boolean isBiometricAvailable() {
         BiometricManager biometricManager = BiometricManager.from(requireContext());
@@ -222,7 +295,14 @@ public class FragmentMakeReceta extends Fragment {
             return;
         }
 
-        String URL = "http://192.168.3.10/proyecto_clinicaELAA/addReceta.php"; // Update with your PHP API URL
+        String URL;
+        if (idReceta > 0) {
+            // Modificación de receta existente
+            URL = "http://192.168.3.10/proyecto_clinicaELAA/actualizarReceta.php";
+        } else {
+            // Nueva receta
+            URL = "http://192.168.3.10/proyecto_clinicaELAA/addReceta.php";
+        }
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
@@ -257,16 +337,19 @@ public class FragmentMakeReceta extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("idDoctor", Integer.toString(id_Doctor)); // Update with the correct parameter name in the PHP API
+                params.put("idDoctor", Integer.toString(id_Doctor));
                 params.put("nombre", nombre);
                 params.put("peso", peso);
                 params.put("estatura", estatura);
                 params.put("imc", imc);
                 params.put("temperatura", temperatura);
                 params.put("presion", presion);
-                params.put("descripcion_tratamiento", descripcion); // Update with the correct parameter name in the PHP API
+                params.put("descripcion_tratamiento", descripcion);
                 params.put("sexo", sexo[0]);
                 params.put("fecha", fecha);
+                if (idReceta > 0) {
+                    params.put("idReceta", Integer.toString(idReceta));
+                }
                 return params;
             }
         };
@@ -276,7 +359,7 @@ public class FragmentMakeReceta extends Fragment {
     }
 
     private void fetchData() {
-        String url = "http://192.168.3.10/proyecto_clinicaELAA/obtenerDatos.php"; // Update with your PHP API URL
+        String url = "http://192.168.3.10/proyecto_clinicaELAA/obtenerDatos.php";
 
         OkHttpClient client = new OkHttpClient();
 
