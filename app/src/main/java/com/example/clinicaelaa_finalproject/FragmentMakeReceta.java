@@ -80,7 +80,7 @@ public class FragmentMakeReceta extends Fragment {
     private EditText editTextPresion;
     private EditText editTextDescripcion;
     private RadioGroup radioGroupSexo;
-    private Button buttonGenerarReceta;
+    private Button buttonGenerarReceta,btnCancelarReceta,btnEliminarReceta;
     private int id_Doctor;
 
     @Override
@@ -120,6 +120,7 @@ public class FragmentMakeReceta extends Fragment {
         editTextDescripcion = view.findViewById(R.id.descripcion_receta);
         radioGroupSexo = view.findViewById(R.id.opciones_sexo);
         buttonGenerarReceta = view.findViewById(R.id.btnGenerarReceta);
+        btnEliminarReceta=view.findViewById(R.id.btnEliminarReceta);
 
         editTextFecha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,11 +141,26 @@ public class FragmentMakeReceta extends Fragment {
                 }
             }
         });
+        btnEliminarReceta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Antes de eliminar la receta, solicitamos confirmación con huella dactilar.
+                if (isBiometricAvailable()) {
+                    showBiometricPromptForDelete();
+                } else {
+                    // Si el dispositivo no es compatible con la autenticación biométrica, muestra un mensaje de error.
+                    Toast.makeText(getActivity(), "Tu dispositivo no admite la autenticación biométrica.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
         if (idReceta != 0) {
             buttonGenerarReceta.setText("Modificar Receta");
+            btnEliminarReceta.setVisibility(View.VISIBLE);
+
         } else {
-            buttonGenerarReceta.setText("Agendar Receta");
+            buttonGenerarReceta.setText("Realizar Receta");
         }
 
         return view;
@@ -213,6 +229,84 @@ public class FragmentMakeReceta extends Fragment {
         }
     }
 
+    private void showBiometricPromptForDelete() {
+        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Confirmar con huella dactilar para eliminar la receta")
+                .setNegativeButtonText("Cancelar")
+                .build();
+
+        BiometricPrompt biometricPrompt = new BiometricPrompt(this, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                // La autenticación fue exitosa, procede a eliminar la receta desde el servidor.
+                eliminarReceta();
+            }
+
+            @Override
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+                // Error en la autenticación, muestra un mensaje de error.
+                Toast.makeText(getActivity(), "Error en la autenticación: " + errString, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                // La autenticación falló, muestra un mensaje de error.
+                Toast.makeText(getActivity(), "Autenticación fallida. Inténtalo nuevamente.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Muestra el diálogo de autenticación biométrica
+        biometricPrompt.authenticate(promptInfo);
+    }
+
+    private void eliminarReceta() {
+        // Realizar la solicitud para eliminar la receta desde el servidor
+        String URL = "http://192.168.3.10/proyecto_clinicaELAA/eliminarReceta.php"; // Reemplaza esta URL con la URL de tu API
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+                            if (success) {
+                                Toast.makeText(getActivity(), "Receta eliminada exitosamente", Toast.LENGTH_SHORT).show();
+                                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.setReorderingAllowed(true);
+                                fragmentTransaction.replace(R.id.frameLayoutDoctores, new RecipesFragment_Doctores());
+                                fragmentTransaction.commit();
+                            } else {
+                                Toast.makeText(getActivity(), "Error al eliminar la receta", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getActivity(), "Error al procesar la respuesta", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        Toast.makeText(getActivity(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("idReceta", String.valueOf(idReceta));
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(stringRequest);
+    }
+
 
     private boolean isBiometricAvailable() {
         BiometricManager biometricManager = BiometricManager.from(requireContext());
@@ -250,6 +344,7 @@ public class FragmentMakeReceta extends Fragment {
         // Muestra el diálogo de autenticación biométrica
         biometricPrompt.authenticate(promptInfo);
     }
+
 
     private void showDatePickerDialog(EditText editText) {
         Calendar calendar = Calendar.getInstance();

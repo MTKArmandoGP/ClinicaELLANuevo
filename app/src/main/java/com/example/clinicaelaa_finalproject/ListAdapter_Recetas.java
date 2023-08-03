@@ -83,6 +83,3 @@ public class ListAdapter_Recetas extends RecyclerView.Adapter<ListAdapter_Receta
         }
     }
 }
-
-
-
