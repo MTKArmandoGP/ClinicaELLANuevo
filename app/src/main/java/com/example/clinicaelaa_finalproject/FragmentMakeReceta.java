@@ -27,6 +27,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -231,6 +233,11 @@ public class FragmentMakeReceta extends Fragment {
                             boolean success = jsonObject.getBoolean("success");
                             if (success) {
                                 Toast.makeText(getActivity(), "Receta generada exitosamente", Toast.LENGTH_SHORT).show();
+                                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.setReorderingAllowed(true);
+                                fragmentTransaction.replace(R.id.frameLayoutDoctores, new RecipesFragment_Doctores());
+                                fragmentTransaction.commit();
                             } else {
                                 Toast.makeText(getActivity(), "Error al generar la receta", Toast.LENGTH_SHORT).show();
                             }

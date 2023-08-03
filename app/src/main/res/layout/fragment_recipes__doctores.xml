@@ -51,7 +51,7 @@
             android:backgroundTint="@color/md_theme_dark_inversePrimary"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecyclerCitas"
+        android:id="@+id/RecyclerRecetas"
         android:layout_width="match_parent"
         android:layout_height="447dp"
         android:layout_alignParentTop="true"
