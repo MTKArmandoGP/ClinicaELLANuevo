@@ -19,6 +19,7 @@
         android:theme="@style/Theme.ClinicaELAA_finalProject"
         android:usesCleartextTraffic="true"
         tools:targetApi="31" >
+
         <activity
             android:name=".FarmaciaFragment_Usuarios"
             android:exported="false" />

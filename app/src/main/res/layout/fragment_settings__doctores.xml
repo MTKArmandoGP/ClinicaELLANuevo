@@ -1,14 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsFragment_Doctores">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".SettingsFragment_Doctores"
+    android:background="@drawable/fondo2">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="286dp"
+        android:gravity="center"
+        android:text="INFORMACION CLINICA"
+        android:textColor="@color/AzulFinal"
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
-</FrameLayout>
+    <RelativeLayout
+        android:id="@+id/settings_doctores"
+        android:layout_width="wrap_content"
+        android:layout_height="558dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="61dp"
+        android:background="@drawable/bg_container_login"
+        android:elevation="50dp">
+
+        <TextView
+            android:layout_width="229dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="50dp"
+            android:gravity="left|center_vertical"
+            android:text="Contactos:"
+            android:textColor="@color/AzulFinal"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/contact"/>
+
+
+        <TextView
+            android:layout_width="229dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="102dp"
+            android:layout_marginBottom="286dp"
+            android:gravity="left"
+            android:text="Telefono: 55 2465 7809"
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            android:textStyle="normal" />
+        <TextView
+            android:layout_width="229dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="125dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="102dp"
+            android:layout_marginBottom="286dp"
+            android:gravity="left"
+            android:text="55 6734 1289"
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            android:textStyle="normal" />
+        <TextView
+            android:layout_width="229dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="120dp"
+            android:layout_marginEnd="102dp"
+            android:layout_marginBottom="286dp"
+            android:gravity="left"
+            android:text="Email: clinicaelaa@gmail.com"
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="229dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="160dp"
+            android:gravity="left|center_vertical"
+            android:text="Horarios:"
+            android:textColor="@color/AzulFinal"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/time"/>
+
+        <TextView
+            android:layout_width="248dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="190dp"
+            android:layout_marginEnd="33dp"
+            android:layout_marginBottom="286dp"
+            android:gravity="left"
+            android:text="Lunes a Viernes 8 am - 2 pm, 3pm - 5 pm"
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            android:textStyle="normal" />
+        <TextView
+            android:layout_width="229dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="210dp"
+            android:layout_marginEnd="102dp"
+            android:layout_marginBottom="286dp"
+            android:gravity="left"
+            android:text="Sabados 9 am - 2 pm"
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="229dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="245dp"
+            android:gravity="left|center_vertical"
+            android:text="Direccion:"
+            android:textColor="@color/AzulFinal"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/address"/>
+
+        <TextView
+            android:layout_width="248dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="280dp"
+            android:layout_marginEnd="33dp"
+            android:layout_marginBottom="286dp"
+            android:gravity="left"
+            android:text="Direccion:"
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            android:textStyle="normal" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="249dp"
+            android:layout_height="175dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="311dp"
+            android:layout_marginEnd="44dp"
+            android:layout_marginBottom="64dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/mpas" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
