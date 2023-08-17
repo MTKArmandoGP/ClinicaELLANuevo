@@ -66,7 +66,8 @@
         android:paddingTop="5dp"
         android:paddingEnd="20dp"
         android:paddingBottom="5dp"
-        android:weightSum="4">
+        android:weightSum="4"
+        android:background="@color/white">
 
 
 
@@ -227,7 +228,7 @@
                 android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ajustes"
+                android:text="Información"
                 android:textStyle="bold"
                 android:textColor="#170343"
                 android:layout_marginStart="10dp"

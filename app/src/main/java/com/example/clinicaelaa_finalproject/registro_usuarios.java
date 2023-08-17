@@ -194,7 +194,7 @@ public class registro_usuarios extends Fragment {
 
             try {
                 // Realizar la solicitud HTTP POST en el hilo secundario
-                URL url = new URL("http://192.168.90.201/proyecto_clinicaELAA/registrar_usuarios.php");
+                URL url = new URL(getString(R.string.url)+"registrar_usuarios.php");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);

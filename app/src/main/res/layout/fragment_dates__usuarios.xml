@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DatesFragment_Usuarios"
-    android:background="#EFEFEF">
+    android:background="@drawable/fondoblanco">
 
     <TextView
         android:id="@+id/lblCitas"

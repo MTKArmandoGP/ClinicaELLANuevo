@@ -77,7 +77,7 @@ public class Mi_Perfil_Activity extends AppCompatActivity {
     private EditText txtnombre,txtApellidos,txtCorreo,txtUsuario;
 
     private void fetchData() {
-        String url = "http://192.168.90.201/proyecto_clinicaELAA/obtenerDatos.php";
+        String url = getString(R.string.url)+"obtenerDatos.php";
 
         OkHttpClient client = new OkHttpClient();
 
@@ -303,7 +303,7 @@ public class Mi_Perfil_Activity extends AppCompatActivity {
     }
 
     private void updateProfile() {
-        String url = "http://192.168.90.201/proyecto_clinicaELAA/actualizar.php";
+        String url = getString(R.string.url)+"actualizar.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -505,7 +505,7 @@ public class Mi_Perfil_Activity extends AppCompatActivity {
         String name = nombre; // Reemplaza con los datos reales
         String email = correo; // Reemplaza con los datos reales
 
-        String url = "http://192.168.90.201/proyecto_clinicaELAA/subirImagenUsuario.php";
+        String url = getString(R.string.url)+"subirImagenUsuario.php";
 
         // Crear una solicitud POST usando StringRequest de Volley
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

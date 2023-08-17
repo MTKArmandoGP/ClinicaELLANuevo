@@ -274,7 +274,7 @@ public class FragmentMakeDate extends Fragment {
     }
 
     private void obtenerDoctores() {
-        String url = "http://192.168.90.168/proyecto_clinicaELAA/obtenerDoctores.php";
+        String url = getString(R.string.url)+"obtenerDoctores.php";
         JsonRequest<JSONObject> request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -321,7 +321,7 @@ public class FragmentMakeDate extends Fragment {
     }
 
     private void altaCita(int idDoctor, int idPaciente, String fecha, String hora) {
-        String url = "http://192.168.90.201/proyecto_clinicaELAA/altacita.php";
+        String url = getString(R.string.url)+"altacita.php";
 
         // Construir los parámetros de la solicitud POST
         Map<String, String> params = new HashMap<>();
@@ -378,7 +378,7 @@ public class FragmentMakeDate extends Fragment {
     }
 
     private void modificarCita(int idCita, int nuevoIdDoctor, String nuevaFecha, String nuevaHora) {
-        String url = "http://192.168.90.201/proyecto_clinicaELAA/modificarCita.php";
+        String url = getString(R.string.url)+"modificarCita.php";
 
         // Construir los parámetros de la solicitud POST
         Map<String, String> params = new HashMap<>();
@@ -435,7 +435,7 @@ public class FragmentMakeDate extends Fragment {
     }
 
     private void fetchData() {
-        String url = "http://192.168.90.168/proyecto_clinicaELAA/obtenerDatos.php";
+        String url = getString(R.string.url)+"obtenerDatos.php";
 
         OkHttpClient client = new OkHttpClient();
 

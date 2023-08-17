@@ -55,7 +55,7 @@ public class Herramientas_activity extends AppCompatActivity {
     private String numero;
     private String rol;
     private void fetchData() {
-        String url = "http://192.168.159.201/proyecto_clinicaELAA/obtenerDatos.php";
+        String url = getString(R.string.url)+"obtenerDatos.php";
 
         OkHttpClient client = new OkHttpClient();
 

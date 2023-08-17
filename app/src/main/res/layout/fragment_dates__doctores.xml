@@ -3,12 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DatesFragment_Doctores">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".DatesFragment_Doctores"
+    android:background="@drawable/fondoblanco">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/trabajando"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:text="TRABAJANDO EN ESTA PANTALLA"
+        android:gravity="center"
+        android:textSize="44dp"
+        android:textStyle="bold"
+        android:paddingTop="50dp"
+        />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/building1"
+        app:lottie_rawRes="@raw/building2"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

@@ -119,7 +119,7 @@ public class DatesFragment_Usuarios extends Fragment {
     }
 
     private void fetchData() {
-        String url = "http://192.168.90.201/proyecto_clinicaELAA/obtenerDatos.php";
+        String url = getString(R.string.url)+"obtenerDatos.php";
 
         OkHttpClient client = new OkHttpClient();
 
@@ -168,7 +168,7 @@ public class DatesFragment_Usuarios extends Fragment {
     }
 
     private void init() {
-        String url = "http://192.168.90.201/proyecto_clinicaELAA/consultaCitas.php";
+        String url = getString(R.string.url)+"consultaCitas.php";
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     try {
@@ -285,7 +285,7 @@ public class DatesFragment_Usuarios extends Fragment {
     }
 
     private void eliminarCita(int idCita) {
-        String url = "http://192.168.90.201/proyecto_clinicaELAA/eliminarCita.php";
+        String url = getString(R.string.url)+"eliminarCita.php";
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     try {

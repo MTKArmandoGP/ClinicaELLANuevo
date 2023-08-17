@@ -107,7 +107,7 @@ public class datos_olvido_contrasena_activity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... voids) {
             try {
-                URL url = new URL("http://192.168.159.201/proyecto_clinicaELAA/restablecercontrasena.php");
+                URL url = new URL(getString(R.string.url)+"restablecercontrasena.php");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);

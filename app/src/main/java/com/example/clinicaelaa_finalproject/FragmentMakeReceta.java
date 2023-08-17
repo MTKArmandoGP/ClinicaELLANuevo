@@ -121,6 +121,7 @@ public class FragmentMakeReceta extends Fragment {
         radioGroupSexo = view.findViewById(R.id.opciones_sexo);
         buttonGenerarReceta = view.findViewById(R.id.btnGenerarReceta);
         btnEliminarReceta=view.findViewById(R.id.btnEliminarReceta);
+        btnCancelarReceta=view.findViewById(R.id.btnCancelarReceta);
 
         editTextFecha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +140,17 @@ public class FragmentMakeReceta extends Fragment {
                     // Si el dispositivo no es compatible con la autenticación biométrica, muestra un mensaje de error.
                     Toast.makeText(getActivity(), "Tu dispositivo no admite la autenticación biométrica.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        btnCancelarReceta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setReorderingAllowed(true);
+                fragmentTransaction.replace(R.id.frameLayoutDoctores, new RecipesFragment_Doctores());
+                fragmentTransaction.commit();
             }
         });
         btnEliminarReceta.setOnClickListener(new View.OnClickListener() {
@@ -169,7 +181,7 @@ public class FragmentMakeReceta extends Fragment {
     private void fetchDataForReceta() {
         if (idReceta > 0) {
             // Si hay un idReceta válido, hacemos la solicitud a la API para obtener los datos de la receta
-            String URL = "http://192.168.3.10/proyecto_clinicaELAA/consultarDatosRecetas.php"; // Reemplaza esta URL con la URL de tu API
+            String URL = getString(R.string.url)+"consultarDatosRecetas.php"; // Reemplaza esta URL con la URL de tu API
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
                     new Response.Listener<String>() {
@@ -263,7 +275,7 @@ public class FragmentMakeReceta extends Fragment {
 
     private void eliminarReceta() {
         // Realizar la solicitud para eliminar la receta desde el servidor
-        String URL = "http://192.168.3.10/proyecto_clinicaELAA/eliminarReceta.php"; // Reemplaza esta URL con la URL de tu API
+        String URL = getString(R.string.url)+"eliminarReceta.php"; // Reemplaza esta URL con la URL de tu API
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
@@ -393,10 +405,10 @@ public class FragmentMakeReceta extends Fragment {
         String URL;
         if (idReceta > 0) {
             // Modificación de receta existente
-            URL = "http://192.168.3.10/proyecto_clinicaELAA/actualizarReceta.php";
+            URL = getString(R.string.url)+"actualizarReceta.php";
         } else {
             // Nueva receta
-            URL = "http://192.168.3.10/proyecto_clinicaELAA/addReceta.php";
+            URL = getString(R.string.url)+"addReceta.php";
         }
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
@@ -454,7 +466,7 @@ public class FragmentMakeReceta extends Fragment {
     }
 
     private void fetchData() {
-        String url = "http://192.168.3.10/proyecto_clinicaELAA/obtenerDatos.php";
+        String url = getString(R.string.url)+"obtenerDatos.php";
 
         OkHttpClient client = new OkHttpClient();
 

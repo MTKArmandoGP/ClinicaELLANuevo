@@ -184,7 +184,7 @@ public class registro_doctores extends Fragment {
 
     // Método para enviar los datos de registro al servidor
     private void enviarDatosRegistro(String nombre, String apellidos, String correo, String numero, String password, String rol, String usuario) {
-        String url = "http://192.168.90.168/proyecto_clinicaELAA/registrar_usuarios.php"; // Reemplaza con la URL de tu servidor y el archivo PHP
+        String url = getString(R.string.url)+"registrar_usuarios.php"; // Reemplaza con la URL de tu servidor y el archivo PHP
         String postData = "nombre_usuario=" + nombre +
                 "&apellidos_usuario=" + apellidos +
                 "&correo_usuario=" + correo +

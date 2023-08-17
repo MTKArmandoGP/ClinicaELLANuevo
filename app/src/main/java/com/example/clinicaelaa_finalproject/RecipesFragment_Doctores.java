@@ -108,7 +108,7 @@ public class RecipesFragment_Doctores extends Fragment {
     }
 
     private void fetchData() {
-        String url = "http://192.168.3.10/proyecto_clinicaELAA/obtenerDatos.php";
+        String url = getString(R.string.url)+"obtenerDatos.php";
 
         OkHttpClient client = new OkHttpClient();
 
@@ -159,7 +159,7 @@ public class RecipesFragment_Doctores extends Fragment {
     }
 
     private void fetchRecetasFromAPI() {
-        String url = "http://192.168.3.10/proyecto_clinicaELAA/consultarRecetas.php";
+        String url = getString(R.string.url)+"consultarRecetas.php";
 
         OkHttpClient client = new OkHttpClient();
 

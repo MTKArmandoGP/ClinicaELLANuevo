@@ -63,7 +63,7 @@ public class pantalla_principal_usuarios_activity extends AppCompatActivity impl
 
     // Método para realizar la solicitud de red y obtener los datos
     private void fetchData() {
-        String url = "http://192.168.90.201/proyecto_clinicaELAA/obtenerDatos.php";
+        String url = getString(R.string.url)+"obtenerDatos.php";
 
         OkHttpClient client = new OkHttpClient();
 
@@ -266,7 +266,7 @@ public class pantalla_principal_usuarios_activity extends AppCompatActivity impl
                 @Override
                 public void onClick(View view) {
 
-                    getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).replace(R.id.frameLayoutUsuarios,MedicineFragment_Usuarios.class,null)
+                    getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).replace(R.id.frameLayoutUsuarios,FarmaciaFragment_Usuarios.class,null)
                             .commit();
 
                     if(selectedTab!=2){
@@ -527,7 +527,7 @@ public class pantalla_principal_usuarios_activity extends AppCompatActivity impl
                 selectedTab=1;
                 break;
             case R.id.nav_medicine:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutUsuarios,new MedicineFragment_Usuarios()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutUsuarios,new FarmaciaFragment_Usuarios()).commit();
 
 
                 //Se colocan invisibles los textos

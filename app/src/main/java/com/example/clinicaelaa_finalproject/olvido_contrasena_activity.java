@@ -93,7 +93,7 @@ public class olvido_contrasena_activity extends AppCompatActivity {
             public void run() {
                 try {
                     // URL of the PHP file
-                    URL url = new URL("http://192.168.90.201/proyecto_clinicaELAA/olvidocontrasena.php");
+                    URL url = new URL(getString(R.string.url)+"olvidocontrasena.php");
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
                     connection.setDoOutput(true);
